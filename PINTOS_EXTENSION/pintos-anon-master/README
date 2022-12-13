@@ -1,0 +1,37 @@
+In order to run pintos on your system, we first need to check whether stropts.h is applicable or not.
+Like in ubuntu20.04 pintos does not work. We implemented this project on ubuntu 18.04 .
+
+Follow the steps to run pintos on ubuntu 18.04-
+1. Install Qemu - $ sudo apt-get install qemu
+2. Download Pintos - from our uploaded code
+3. Unzip the code in the desktop.
+4. Set GDBMACROS - Find the variable GDBMACROSin proj1/src/utils and set it to point to ‘$HOME/pintos-anon-master/proj1/src/misc/gdb-macros’.
+Find the variable GDBMACROS in proj2/src/utils and set it to point to ‘$HOME/pintos-anon-master/proj2/src/misc/gdb-macros’.
+5. Compile the Utilities - $ cd $HOME/pintos-anon-master/proj1/src/utils - then - $ make
+$ cd $HOME/pintos-anon-master/proj2/src/utils - then - $ make
+6. If you get an error saying “Undefined reference to ‘floor'”, make following changes:
+Edit “Makefile” in the current directory and replace “LDFLAGS = -lm” by “LDLIBS = -lm” and redo the step for both proj1 and proj2.
+7. Edit Make.vars in threads directory - Open the file “$HOME/pintos-anon-master/proj1/src/threads/Make.vars” and change the last line to:
+SIMULATOR = –qemu
+Open the file “$HOME/pintos-anon-master/proj2/src/threads/Make.vars” and change the last line to:
+SIMULATOR = –qemu
+8. Compile Pintos Kernel - cd $HOME/pintos-anon-master/proj1/src/threads - then - $ make
+$ cd $HOME/pintos-anon-master/proj2/src/threads - then - $ make
+9. Edit Pintos utiltiy
+Make these three changes in “$HOME/pintos-anon-master/proj1/src/utils/pintos” :
+On line no. 257, replace “kernel.bin” to path pointing to kernel.bin file at “$HOME/pintos-anon-master/proj1/src/threads/build/kernel.bin”.
+Make these three changes in “$HOME/pintos-anon-master/proj2/src/utils/pintos” :
+On line no. 257, replace “kernel.bin” to path pointing to kernel.bin file at “$HOME/pintos-anon-master/proj2/src/userprog/build/kernel.bin”.
+10. Edit Pintos.pm file
+Open “$HOME/pintos-anon-master/proj1/src/utils/Pintos.pm” and replace “loader.bin” at line no. 362 to path till loader.bin located at “$HOME/pintos-anon-master/proj1/src/threads/build/loader.bin”
+Open “$HOME/pintos-anon-master/proj2/src/utils/Pintos.pm” and replace “loader.bin” at line no. 362 to path till loader.bin located at “$HOME/pintos-anon-master/proj2/src/userprog/build/loader.bin”
+11. Add to PATH variable
+pintos and other utilities are used to talk to Pintos. To run these utilities from any directory, add below mentioned line at the end of $HOME/.bashrc file and restart the terminal:
+export PATH=$HOME/os-pg/pintos/src/utils:$PATH 
+12. Now we you can go to any project folder in the terminal.
+Now we compile the threads folder for the first project, then we enter the build file using $ cd build.
+then we write the command $ make check VERBOSE=1. after its completion we execute the command $ make grade.
+for project 2 we repeat the same steps as we did for project 1 but here we do it in userprog folder.
+first we compile the userprog folder in proj2 , then we enter the build directory.
+in the build directory we run the command $ make check VERBOSE=1 and after its completion we run $ make grade.
+this will provide us with the grades recieved as per the stanford requirements.
